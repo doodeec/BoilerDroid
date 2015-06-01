@@ -7,6 +7,14 @@ Design Support library, Retrofit and ButterKnife) to speed up your development w
 
 It also contains basic package structure which you can use to modularize your code/app.
 
+### Libraries versions
+**AppCompat** 22.2.0<br/>
+**Design Support** 22.2.0<br/>
+**Recycler View** 22.2.0<br/>
+**Google Play Services** 7.5.0<br/>
+**Butterknife** 6.1.0<br/>
+**Retrofit** 1.9.0<br/>
+
 ### Installation
 1. Checkout this repository
 2. Import repository to Android Studio
