@@ -3,15 +3,17 @@ final VERSION_MINOR = 0
 final VERSION_PATCH = 0
 
 apply plugin: 'com.android.application'
+apply from: '../autobuild.gradle'
+apply from: '../signing.gradle'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.1"
 
     defaultConfig {
         applicationId "com.doodeec.boilerdroid"
         minSdkVersion 14
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode VERSION_MAJOR * 10000 + VERSION_MINOR * 100 + VERSION_PATCH
         versionName "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}"
     }
@@ -41,54 +43,20 @@ android {
     }
 }
 
-task askForPasswords << {
-    def storePass
-    def keyAlias
-    def keyPass
-
-    def keystorePropertiesFile = new File(project.property("keystore.properties"))
-
-    if (project.hasProperty("keystore.properties") && keystorePropertiesFile.exists()) {
-        println "Loading keystore passwords from property file..."
-        Properties properties = new Properties()
-        properties.load(new FileInputStream(keystorePropertiesFile))
-        storePass = properties['keystore.store.password']
-        keyAlias = properties['keystore.key.alias']
-        keyPass = properties['keystore.key.password']
-    } else {
-        println "Getting keystore passwords from user input..."
-        storePass = new String(System.console().readPassword("\nStore password: "))
-        keyAlias = new String(System.console().readLine("Key alias: "))
-        keyPass = new String(System.console().readPassword("Key password: "))
-    }
-
-    android.signingConfigs.release.storePassword = storePass
-    android.signingConfigs.release.keyAlias = keyAlias
-    android.signingConfigs.release.keyPassword = keyPass
-}
-
-
-tasks.whenTaskAdded {
-    theTask ->
-        if (theTask.name.equals("packageRelease")) {
-            theTask.dependsOn "askForPasswords"
-        }
-}
-
 dependencies {
-    compile 'com.android.support:appcompat-v7:22.2.1'
-    compile 'com.android.support:design:22.2.1'
-    compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile 'com.google.android.gms:play-services:7.5.0'
-    compile 'com.jakewharton:butterknife:6.1.0'
+    compile 'com.android.support:appcompat-v7:23.0.1'
+    compile 'com.android.support:design:23.0.1'
+    compile 'com.android.support:recyclerview-v7:23.0.1'
+    compile 'com.google.android.gms:play-services:7.8.0'
+    compile 'com.jakewharton:butterknife:7.0.1'
     compile 'com.squareup.retrofit:retrofit:1.9.0'
-    compile 'com.squareup.okhttp:okhttp:2.4.0'
-    compile 'com.squareup.okhttp:okhttp-urlconnection:2.4.0'
+    compile 'com.squareup.okhttp:okhttp:2.5.0'
+    compile 'com.squareup.okhttp:okhttp-urlconnection:2.5.0'
     androidTestCompile 'junit:junit:4.12'
-    androidTestCompile 'org.mockito:mockito-core:2.0.5-beta'
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.3.1'
+    androidTestCompile 'org.mockito:mockito-core:2.0.31-beta'
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.4.1'
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:2.0.5-beta'
-    testCompile 'org.robolectric:robolectric:3.0-rc2'
+    testCompile 'org.mockito:mockito-core:2.0.31-beta'
+    testCompile 'org.robolectric:robolectric:3.0'
     testCompile 'org.json:json:20140107'
 }
