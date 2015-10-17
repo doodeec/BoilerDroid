@@ -6,20 +6,20 @@ import android.widget.TextView;
 
 import com.doodeec.boilerdroid.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author Dusan Bartos
  */
 public class PlaceholderViewHolder extends RecyclerView.ViewHolder {
 
-    @InjectView(R.id.name)
+    @Bind(R.id.name)
     TextView mTextView;
 
     public PlaceholderViewHolder(View view) {
         super(view);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
     }
 
     public void setName(String name) {

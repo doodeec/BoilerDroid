@@ -20,6 +20,9 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
          * @param position item position in the list
          */
         void onItemClick(View view, int position);
+    }
+
+    public interface OnItemExtendedClickListener extends OnItemClickListener {
 
         /**
          * Fires when recycler view receives a long tap event on item
@@ -53,6 +56,10 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
     public void onTouchEvent(RecyclerView view, MotionEvent motionEvent) {
     }
 
+    @Override
+    public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+    }
+
     /**
      * Extended Gesture listener react for both item clicks and item long clicks
      */
@@ -73,7 +80,9 @@ public class RecyclerItemClickListener implements RecyclerView.OnItemTouchListen
 
         @Override
         public void onLongPress(MotionEvent e) {
-            mListener.onItemLongClick(view, position);
+            if (mListener instanceof OnItemExtendedClickListener) {
+                ((OnItemExtendedClickListener) mListener).onItemLongClick(view, position);
+            }
         }
     }
 }

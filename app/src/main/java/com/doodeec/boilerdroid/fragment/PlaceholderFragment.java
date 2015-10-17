@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import com.doodeec.boilerdroid.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 /**
  * @author Dusan Bartos
@@ -20,7 +20,7 @@ public class PlaceholderFragment extends Fragment {
 
     public static final String FRAGMENT_TAG = "placeholderFragment";
 
-    @InjectView(R.id.text)
+    @Bind(R.id.text)
     TextView mTextView;
 
     public static PlaceholderFragment newInstance(Bundle arguments) {
@@ -33,7 +33,7 @@ public class PlaceholderFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_placeholder, container, false);
-        ButterKnife.inject(this, view);
+        ButterKnife.bind(this, view);
         return view;
     }
 }
